@@ -482,9 +482,9 @@ int main() {
     int arr_bst[] = {8,5,7,9,2,4,1,6};
     BSTree root_bst = NULL;
     for (int i = 0; i < 8; i++) bst_insert(&root_bst, arr_bst[i]);
-    printf("BST中序："); in_order(root_bst); printf("\n");
+    printf("BST中序:"); in_order(root_bst); printf("\n");
     bst_delete(&root_bst, 5);
-    printf("删除5后："); in_order(root_bst); printf("\n");
+    printf("删除5后:"); in_order(root_bst); printf("\n");
     destroy_btree(&root_bst);
     printf("--------------------\n");
 
@@ -492,8 +492,8 @@ int main() {
     HashTable ht;
     init_ht(&ht);
     ht_insert(&ht, 1, 100); ht_insert(&ht, 11, 200);
-    printf("哈希表查1：%d\n", ht_search(&ht, 1));
-    printf("哈希表查11：%d\n", ht_search(&ht, 11));
+    printf("哈希表查1:%d\n", ht_search(&ht, 1));
+    printf("哈希表查11:%d\n", ht_search(&ht, 11));
     printf("--------------------\n");
 
     // 7. 排序测试
