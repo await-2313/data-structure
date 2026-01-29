@@ -74,7 +74,7 @@ BSTNode* search_bst(BSTree root,int key)
     if(!root)return NULL;
     if(key == root->data)return root;
     else if(key>root->data)return search_bst(root->rchild,key);
-    else if(key<root->data)return search_bst(root->lchild,key);
+    else return search_bst(root->lchild,key);
 }
 
 int countBstNodeRecursive(BSTree root)//BST统计节点数
