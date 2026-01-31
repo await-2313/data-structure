@@ -15,7 +15,7 @@ int insert_bst(BSTree* root,int key);//插入BST节点
 void in_order_traverse(BSTree root);//中序遍历
 int copy_bst_in_order(BSTree root,BSTree* new_root);
 BSTree bst_copy(BSTree root);
-int destory_bst_post_order(BSTree root);
+int destory_bst_post_order(BSTree* root);
 
 int main(){
     int arr[] = {5,4,1,3,8,7,6,12,9,13};
@@ -39,8 +39,8 @@ int main(){
     puts("\n");
 
     //后序遍历删除树
-    int status_1 = destory_bst_post_order(new_root);
-    int status_2 = destory_bst_post_order(root_2);
+    int status_1 = destory_bst_post_order(&new_root);
+    int status_2 = destory_bst_post_order(&root_2);
     if(status_1&&status_2){
         puts("destory succcess!");
     }else puts("failed destory");
@@ -90,12 +90,12 @@ BSTree bst_copy(BSTree root){
     return curr;
 }
 
-int destory_bst_post_order(BSTree root){
-    if(!root) return 0;
-    destory_bst_post_order(root->lchild);
-    destory_bst_post_order(root->rchild);
-    free(root);
-    root = NULL;
+int destory_bst_post_order(BSTree *root){
+    if(!*root) return 0;
+    destory_bst_post_order(&((*root)->lchild));
+    destory_bst_post_order(&((*root)->rchild));
+    free(*root);
+    *root = NULL;
     return 1;
 }
 
