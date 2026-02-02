@@ -28,22 +28,26 @@ int countBstLeafNodesRecursive(BSTree root);//BST统计叶子结点数
 int countBstTwoDegreeNodes(BSTree root);//BST统计二度节点个数
 // BSTNode* find_min_bst(BSTree root);//BST中序后继
 // BSTNode* find_max_bst(BSTree root);//BST中序前驱
-
+BSTree convertBSTToDLL(BSTree root);//改造BST为双向链表
+void in_order_myself(BSTree root);//迭代实现中序遍历
 
 //测试
 void test01(BSTree root);//测试统计节点功能
 void test02(BSTree root);//测试统计叶子结点功能
 // void test03(BSTree root);//找出BST中序遍历的前驱和后继
+void test04(BSTree root);//测试--BST转为双向链表
 int main(){
 
-    int arr[] = {5,4,1,3,88,7,6,12,9,13};
+    int arr[] = {5,4,1,3,8,7,6,12,9,13};
     BSTree root = NULL;
     for(int i=0,len = sizeof(arr)/sizeof(int);i<len;i++)
         insert_bst(&root,arr[i]);
     
-    test01(root);
-    test02(root);
+    //test01(root);
+    //test02(root);
     // test03(root);
+    test04(root);
+    
     return 0;
 }
 
@@ -148,3 +152,67 @@ void test02(BSTree root){    //测试统计叶子结点功能
     printf("the front Nodes is : %d \n",find_max_bst(curr->lchild)->data);
     printf("the rear  Nodes is : %d \n",find_min_bst(curr->rchild)->data);
 } */
+BSTree convertBSTToDLL(BSTree root)//改造BST为双向链表
+{
+    if(!root) return NULL ;
+    BSTree head = NULL,pre=NULL;
+
+    BSTree stack[50];
+    int top = -1;
+    BSTree curr = root;
+    while(top!=-1||curr)
+    {
+        while(curr){
+            stack[++top] = curr;
+            curr = curr->lchild;
+        }
+        curr = stack[top--];
+        curr->lchild = pre;
+        if(!pre) head = curr;
+        else pre->rchild = curr;
+        pre = curr;
+
+        curr = curr->rchild;
+    }
+    pre->rchild = NULL;
+    return head;
+}
+
+void in_order_myself(BSTree root)
+{
+    if(!root) return;
+    BSTree stack[50];
+    int top=-1;
+    BSTree curr = root;
+    while(top!=-1||curr){
+        while(curr){
+            stack[++top] = curr;
+            curr = curr->lchild;
+        }
+        curr = stack[top--];
+        printf("%d ",curr->data);
+        curr = curr->rchild;
+    }
+}
+void test04(BSTree root)
+{
+    in_order_myself(root);
+    printf("\n");
+    BSTree head=convertBSTToDLL(root);
+    BSTree rear = head;
+    while(head){
+        printf("%d",head->data);
+        if(head->rchild)printf("->");
+        head = head->rchild;
+    }
+    
+    while(rear->rchild){
+        rear = rear->rchild;
+    }
+    printf("\n");
+    while(rear){
+        printf("%d",rear->data);
+        if(rear->lchild)printf("<-");
+        rear=rear->lchild;
+    }
+}
