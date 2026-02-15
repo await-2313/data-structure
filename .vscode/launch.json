@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "gcc - 调试活动文件",
+            "type": "cppvsdbg", // Windows+MinGW 用这个类型没问题
+            "request": "launch",
+            // 调试的程序路径（和编译输出路径一致）
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": true, // 修正：设为true，调试启动后停在main函数第一行
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true, // 修正：设为true，方便有输入的程序调试
+            "MIMode": "gdb",
+            // 修正：写gdb.exe的绝对路径，避免环境变量问题
+            "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
+            // 必须和tasks.json的label完全一致
+            "preLaunchTask": "C/C++: gcc 编译活动文件（开启警告）",
+            "setupCommands": [
+                {
+                    "description": "为GDB启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

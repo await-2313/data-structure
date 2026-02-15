@@ -2,17 +2,20 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe 生成活动文件",
+            "label": "C/C++: gcc 编译活动文件（开启警告）",
             "command": "C:/MinGW/bin/gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "-g",       // 生成调试信息（调试必备）
+                "${file}",  // 编译当前激活的文件
+                "-o",       // 指定输出文件
+                "${fileDirname}\\${fileBasenameNoExtension}.exe", // 输出到当前C文件目录
+                "-Wall",    // 开启常用警告
+                "-Wextra",  // 开启额外警告
+                "-Wconversion" // 警告隐式类型转换
             ],
             "options": {
-                "cwd": "C:/MinGW/bin"
+                "cwd": "${fileDirname}" // 修正：编译工作目录改为当前C文件目录
             },
             "problemMatcher": [
                 "$gcc"
