@@ -43,3 +43,7 @@ int dequeue(CirQueue* queue){//                 | 5    | 出队                 
     queue->front = (queue->front+1)%MAXSIZE;
     return data;
 }
+int main()
+{
+    return 0;
+}
